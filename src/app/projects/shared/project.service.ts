@@ -17,4 +17,10 @@ export class ProjectService {
                     .map(res => res.json().data as Project[]);
   }
 
+  getProject(id: number): Observable<Project> {
+    const url = `${this.projectsUrl}/${id}`;
+    return this.http.get(url)
+                    .map(res => res.json().data as Project);
+  }
+
 }
