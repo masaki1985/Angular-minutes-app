@@ -1,0 +1,12 @@
+.projects li {
+    list-style-type: none;
+    cursor: pointer;
+    background: #eee;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 3px;
+    width: 400px;
+}
+.projects li + li {
+    margin-top: 10px;
+}

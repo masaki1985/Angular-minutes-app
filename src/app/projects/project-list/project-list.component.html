@@ -1,3 +1,6 @@
-<p>
-  project-list works!
-</p>
+<h2>議事録一覧</h2>
+<ul class="projects">
+  <li *ngFor="let project of projects">
+    {{project.title}}
+  </li>
+</ul>
