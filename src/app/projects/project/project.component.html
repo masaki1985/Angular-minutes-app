@@ -1,3 +1,57 @@
-<p>
-  project works!
-</p>
+<div *ngIf="project">
+  <br>
+  <div class="contents">
+    <span>議題</span>
+    <input type="text" value="{{project.title}}" disabled>
+    <button>変更</button>
+    <button>保存</button>
+  </div>  
+  <div class="contents">
+    <span>日付</span>
+    <input type="text" value="{{project.date.getFullYear()}}/{{project.date.getMonth()}}/{{project.date.getDate()}}">
+    <!--<input type="text" value="{{project.date.getDate()}}">-->
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>時間</span>
+    <input type="text" value="{{project.time.start}}">〜
+    <input type="text" value="{{project.time.end}}">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>場所</span>
+    <input type="text" value="{{project.place}}">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>参加者</span>
+    <input type="text">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>書記</span>
+    <input type="text">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>見出し</span>
+    <input type="text">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>内容</span>
+    <input type="text">
+    <button>変更</button>
+    <button>保存</button>
+  </div>
+  <div class="contents">
+    <span>サインする</span>
+    <input type="checkbox">
+  </div>  
+<div>

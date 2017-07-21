@@ -1,7 +1,8 @@
 export interface Project {
     id: number;
     title: string;
-    date: string;
+    date: Date;
+    time: TimeRanges;
     startTime: string;
     endTime: string;
     place: string;

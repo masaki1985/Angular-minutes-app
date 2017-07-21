@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Params } from "@angular/router";
+
+import { Project } from "app/projects/shared/project";
+import { ProjectService } from "app/projects/shared/project.service";
 
 @Component({
   selector: 'app-project',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectComponent implements OnInit {
 
-  constructor() { }
+  project: Project;
+
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService) {
+  }
 
   ngOnInit() {
+    this.route.params.forEach((params: Params) => {
+      let id = +params['id'];
+      this.projectService.getProject(id)
+                         .subscribe(project => {
+                           project.date = new Date(project.date);
+                           this.project = project;})
+    })
   }
 
 }

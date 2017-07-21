@@ -14,7 +14,13 @@ export class ProjectService {
 
   getProjects(): Observable<Project[]> {
     return this.http.get(this.projectsUrl)
-                    .map(res => res.json().data as Project[]);
+                    .map(res => res.json().data as Project[])
+  }
+
+  getProject(id: number): Observable<Project> {
+    const url = `${this.projectsUrl}/${id}`;
+    return this.http.get(url)
+                    .map(res => res.json().data as Project);
   }
 
 }
