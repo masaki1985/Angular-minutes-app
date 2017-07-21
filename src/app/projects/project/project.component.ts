@@ -22,7 +22,9 @@ export class ProjectComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let id = +params['id'];
       this.projectService.getProject(id)
-                         .subscribe(project => this.project = project)
+                         .subscribe(project => {
+                           project.date = new Date(project.date);
+                           this.project = project;})
     })
   }
 
