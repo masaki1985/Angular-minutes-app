@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 
 import { Project } from "app/projects/shared/project";
 import { ProjectService } from "app/projects/shared/project.service";
@@ -9,26 +10,38 @@ import { ProjectService } from "app/projects/shared/project.service";
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css']
 })
-export class ProjectListComponent implements OnInit {
+export class ProjectListComponent {
 
-  projects: Project[];
-
+  // projects: Project[];
+  projects: FirebaseListObservable<any[]>;
+  
   constructor(
     private router: Router,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+    db: AngularFireDatabase) {
+      this.projects = db.list('/projects');
   }
 
-  ngOnInit() {
-    this.getProjects();
+  // ngOnInit() {
+  //   this.getProjects();
+  // }
+  
+  // getProjects() {
+  //   this.projectService.getProjects()
+  //                      .subscribe(projects => this.projects = projects);
+  // }
+
+  addProject(newName: string) {
+    // this.projects.push({ title: newName });
+    this.projectService.addProject(newName);
   }
 
-  getProjects() {
-    this.projectService.getProjects()
-                       .subscribe(projects => this.projects = projects);
+  gotoDetail(projectKey: string) {
+    this.router.navigate(['/projects', projectKey]);
   }
 
-  gotoDetail(project: Project) {
-    this.router.navigate(['/projects', project.id]);
+  deleteAll() {
+    // this.projects.remove();
+    this.projectService.deleteAll();
   }
-
 }

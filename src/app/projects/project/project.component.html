@@ -1,4 +1,4 @@
-<div *ngIf="project">
+<!--<div *ngIf="project">
   <br>
   <div class="contents">
     <span>議題</span>
@@ -53,4 +53,13 @@
     <span>サインする</span>
     <input type="checkbox">
   </div>  
-<div>
+</div>-->
+<div *ngFor="let project of projects | async">
+  <div *ngIf="project.$key === selected">
+    <input type="text" value="{{project.title}}">
+    <input type="text" value="{{project.date}}">
+  </div>
+</div>
+<div *ngIf="projects">
+  <p>test</p>
+</div>

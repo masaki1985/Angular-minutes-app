@@ -4,23 +4,39 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Project } from './project';
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 
 @Injectable()
 export class ProjectService {
 
-  private projectsUrl = '/api/projects';
+  // private projectsUrl = '/api/projects';
 
-  constructor(private http: Http) { }
+  // constructor(private http: Http) { }
 
-  getProjects(): Observable<Project[]> {
-    return this.http.get(this.projectsUrl)
-                    .map(res => res.json().data as Project[])
+  // getProjects(): Observable<Project[]> {
+  //   return this.http.get(this.projectsUrl)
+  //                   .map(res => res.json().data as Project[])
+  // }
+
+  // getProject(id: number): Observable<Project> {
+  //   const url = `${this.projectsUrl}/${id}`;
+  //   return this.http.get(url)
+  //                   .map(res => res.json().data as Project);
+  // }
+
+  projects: FirebaseListObservable<any[]>;
+  
+  constructor(db: AngularFireDatabase) {
+    this.projects = db.list('/projects');
   }
 
-  getProject(id: number): Observable<Project> {
-    const url = `${this.projectsUrl}/${id}`;
-    return this.http.get(url)
-                    .map(res => res.json().data as Project);
+  addProject(newName: string) {
+    console.log('test');
+    this.projects.push({ title: newName });
+  }
+
+  deleteAll() {
+    this.projects.remove();
   }
 
 }
