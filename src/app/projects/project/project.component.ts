@@ -15,6 +15,8 @@ export class ProjectComponent implements OnInit {
   // project: Project;
   projects: FirebaseListObservable<any[]>;
   selected: string;
+  readonly: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
@@ -33,11 +35,52 @@ export class ProjectComponent implements OnInit {
   // }
 
   ngOnInit() {
-    console.log(this.projects);
     this.route.params.forEach((params: Params) => {
-      console.log(params);
       this.selected = params.id;
     })
   }
+
+  change() {
+    this.readonly = false;
+  }
+
+  update(key, target, value) {
+    this.projectService.update(key, target, value);
+  }
+
+  updateArray(project, target, value) {
+    let array: any[];
+    if(project.items) {
+      array = project.items.value;
+      array.push(value);
+    }
+    else {
+      array = [value];
+    }
+    this.projectService.update(project.$key, target, array);
+  }
+
+  // test(key, value) {
+  // test(key) {
+  //   let value = [
+  //     '項目１', '項目２', '項目３'
+  //   ];
+  //   value.push('項目４');
+    
+  //   this.projectService.test(key, value);
+  // }
+
+  // test2(key, value, project) {
+  //   let url = key + '/items';
+  //   let items: any[];
+  //   if(value) {
+  //     items = value
+  //     items.push('項目５');
+  //   }
+  //   else {
+  //     items.push = value;
+  //   }
+  //   this.projectService.test(key, items);
+  // }
 
 }

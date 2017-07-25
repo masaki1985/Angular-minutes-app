@@ -36,8 +36,8 @@ export class ProjectListComponent {
     this.projectService.addProject(newName);
   }
 
-  gotoDetail(projectKey: string) {
-    this.router.navigate(['/projects', projectKey]);
+  gotoDetail(key: string) {
+    this.router.navigate(['/projects', key]);
   }
 
   deleteAll() {

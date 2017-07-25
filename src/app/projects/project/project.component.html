@@ -56,10 +56,47 @@
 </div>-->
 <div *ngFor="let project of projects | async">
   <div *ngIf="project.$key === selected">
-    <input type="text" value="{{project.title}}">
-    <input type="text" value="{{project.date}}">
+    <div>
+      <span>議題</span>
+      <input type="text" value="{{project.title.value}}" #newTitle [readonly]="readonly">
+      <button (click)="change()">変更</button>
+      <button (click)="update(project.$key, 'title', newTitle.value)">保存</button>
+    </div>
+    <div>
+      <span>日付</span>
+      <input type="text" #newDate>
+      <button>変更</button>
+      <button>保存</button>
+    </div>
+    <div>
+      <span>時間</span>
+      <input type="text">〜
+      <input type="text">
+    </div>
+    <div>
+      <span>場所</span>
+      <input type="text" value="{{project.place.value}}" #newPlace>
+      <button>変更</button>
+      <button (click)="update(project.$key, 'place', newPlace.value)">保存</button>      
+    </div>
+    <div>
+      <span>参加者</span>
+      <input type="text" #newMember>
+      <button>変更</button>
+      <button>保存</button>
+    </div>
+    <div>
+      <span>書記</span>
+      <input type="text" #newSecretary>
+      <button>変更</button>
+      <button>保存</button>
+    </div>
+    <div>
+      <span>項目</span>
+      <input type="text" #newItems>      
+      <!--<button (click)="update(project.$key, 'items', newItems.value)">追加</button>-->
+      <button (click)="updateArray(project, 'items', newItems.value)">追加</button>      
+    </div>
   </div>
 </div>
-<div *ngIf="projects">
-  <p>test</p>
-</div>
+
