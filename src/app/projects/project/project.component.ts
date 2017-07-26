@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 
-import { Project } from "app/projects/shared/project";
 import { ProjectService } from "app/projects/shared/project.service";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 

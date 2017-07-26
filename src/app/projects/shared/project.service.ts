@@ -3,7 +3,6 @@ import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { Project } from './project';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 
 @Injectable()
