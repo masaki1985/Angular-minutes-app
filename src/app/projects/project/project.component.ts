@@ -12,10 +12,11 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 })
 export class ProjectComponent implements OnInit {
 
-  // project: Project;
   projects: FirebaseListObservable<any[]>;
   selected: string;
   readonly: boolean = true;
+  hidden: boolean = false;
+  checked: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,16 +24,6 @@ export class ProjectComponent implements OnInit {
     db: AngularFireDatabase) {
       this.projects = db.list('/projects');
   }
-
-  // ngOnInit() {
-  //   this.route.params.forEach((params: Params) => {
-  //     let id = +params['id'];
-  //     this.projectService.getProject(id)
-  //                        .subscribe(project => {
-  //                          project.date = new Date(project.date);
-  //                          this.project = project;})
-  //   })
-  // }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -48,7 +39,10 @@ export class ProjectComponent implements OnInit {
     this.projectService.update(key, target, value);
   }
 
+  //TO DO
+  //大項目を更新
   updateItem(project, target, value) {
+    if(!value) { return; }
     let data: any[];
     if(project.items) {
       data = project.items.value;
@@ -60,7 +54,10 @@ export class ProjectComponent implements OnInit {
     this.projectService.update(project.$key, target, data);
   }
 
+  //TO DO
+  //参加者を更新
   updateMember(project, target, value) {
+    if(!value) { return; }
     let data: any[];
     if(project.members) {
       data = project.members.value;
@@ -72,8 +69,21 @@ export class ProjectComponent implements OnInit {
     this.projectService.update(project.$key, target, data);
   }
 
+  //TO DO
+  //参加者を削除
+  deleteMembers(project) {
+    let key = project.$key + '/members';
+    this.projectService.delete(key);
+  }
+
   test() {
-    console.log("test");
+    this.hidden = false;
+    this.checked = false;
+  }
+
+  testHidden() {
+    this.hidden = true;
+    this.checked = true;
   }
 
   // test(key, value) {

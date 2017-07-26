@@ -58,15 +58,13 @@
   <div *ngIf="project.$key === selected">
     <div>
       <span>議題</span>
-      <input type="text" value="{{project.title.value}}" #newTitle [readonly]="readonly">
+      <input type="text" value="{{project.title?.value}}" #newTitle [readonly]="readonly">
       <button (click)="change()">変更</button>
       <button (click)="update(project.$key, 'title', newTitle.value)">保存</button>
     </div>
     <div>
       <span>日付</span>
-      <input type="text" #newDate>
-      <button>変更</button>
-      <button>保存</button>
+      <input type="date" value="{{project.date?.value}}"#newDate (blur)="update(project.$key, 'date', newDate.value)">
     </div>
     <div>
       <span>時間</span>
@@ -85,7 +83,6 @@
         <option value="00:45" [selected]="project.endTime?.value === '00:45'">00:45</option>
         <option value="01:00" [selected]="project.endTime?.value === '01:00'">01:00</option>
       </select>
-      <button>保存</button> 
     </div>
     <div>
       <span>場所</span>
@@ -96,13 +93,11 @@
     <div>
       <span>参加者</span>
       <input type="text" #newMember>
-      <button (click)="updateMember(project, 'members', newMember.value)">追加</button>      
+      <button (click)="updateMember(project, 'members', newMember.value)">追加</button>
+      <button (click)="deleteMembers(project)">削除</button>
     </div>
     <span *ngFor="let member of project.members?.value">
         <span>{{member}}</span>
-        <button>変更</button>
-        <button>保存</button>
-        <br>
     </span>
     <div>
       <span>書記</span>
@@ -115,6 +110,8 @@
       <input type="text" #newItem>      
       <button (click)="updateItem(project, 'items', newItem.value)">追加</button>
     </div>
+    <input type="checkbox" (click)="testHidden()" [checked]="checked" [hidden]="hidden">
+    <span [hidden]="hidden">サインする</span>
   </div>
 </div>
-
+<div (click)="test()">test</div>

@@ -9,19 +9,6 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 @Injectable()
 export class ProjectService {
 
-  //in-memory-web-api
-  // private projectsUrl = '/api/projects';
-  // constructor(private http: Http) { }
-  // getProjects(): Observable<Project[]> {
-  //   return this.http.get(this.projectsUrl)
-  //                   .map(res => res.json().data as Project[])
-  // }
-  // getProject(id: number): Observable<Project> {
-  //   const url = `${this.projectsUrl}/${id}`;
-  //   return this.http.get(url)
-  //                   .map(res => res.json().data as Project);
-  // }
-
   projects: FirebaseListObservable<any[]>;
 
   constructor(db: AngularFireDatabase) {
@@ -36,13 +23,14 @@ export class ProjectService {
     this.projects.remove();
   }
 
-  update(key, target, value) {
-    key += '/' + target;
-    this.projects.update(key, {value});    
+  delete(key) {
+    this.projects.remove(key);
   }
 
-
-
+  update(key, target, value) {
+    key += '/' + target;
+    let test = this.projects.update(key, {value});
+  }
 
   // test(key: string, value: string[]) {
   //   this.projects.update(key, {items: value});
