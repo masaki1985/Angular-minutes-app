@@ -1,9 +1,4 @@
 <h2>議事録一覧</h2>
-<!--<ul class="projects">
-  <li *ngFor="let project of projects" (click)="gotoDetail(project)">
-    {{project.title}}
-  </li>
-</ul>-->
 <ul class="projects">
     <li *ngFor="let project of projects | async" (click)="gotoDetail(project.$key)">
       {{project.title.value}}

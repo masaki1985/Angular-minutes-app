@@ -24,6 +24,7 @@ export class AppComponent {
     this.router.navigateByUrl('/projects');
   }
 
+  //テスト部分
   save(newName: string) {
     this.item.set({name: newName});   
   }
@@ -46,5 +47,5 @@ export class AppComponent {
   deleteEverything() {
     this.items.remove();
   }
-  
+  //テスト部分
 }

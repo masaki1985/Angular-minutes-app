@@ -86,27 +86,4 @@ export class ProjectComponent implements OnInit {
     this.checked = true;
   }
 
-  // test(key, value) {
-  // test(key) {
-  //   let value = [
-  //     '項目１', '項目２', '項目３'
-  //   ];
-  //   value.push('項目４');
-    
-  //   this.projectService.test(key, value);
-  // }
-
-  // test2(key, value, project) {
-  //   let url = key + '/items';
-  //   let items: any[];
-  //   if(value) {
-  //     items = value
-  //     items.push('項目５');
-  //   }
-  //   else {
-  //     items.push = value;
-  //   }
-  //   this.projectService.test(key, items);
-  // }
-
 }

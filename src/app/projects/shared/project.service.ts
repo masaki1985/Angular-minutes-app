@@ -32,12 +32,4 @@ export class ProjectService {
     let test = this.projects.update(key, {value});
   }
 
-  // test(key: string, value: string[]) {
-  //   this.projects.update(key, {items: value});
-  // }
-
-  // test2(key, value) {
-  //   this.projects.update(key, {items: value});
-  // }
-
 }

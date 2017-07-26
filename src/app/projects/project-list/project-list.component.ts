@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 
-import { Project } from "app/projects/shared/project";
 import { ProjectService } from "app/projects/shared/project.service";
 
 @Component({
@@ -12,7 +11,6 @@ import { ProjectService } from "app/projects/shared/project.service";
 })
 export class ProjectListComponent {
 
-  // projects: Project[];
   projects: FirebaseListObservable<any[]>;
   
   constructor(
@@ -21,15 +19,6 @@ export class ProjectListComponent {
     db: AngularFireDatabase) {
       this.projects = db.list('/projects');
   }
-
-  // ngOnInit() {
-  //   this.getProjects();
-  // }
-  
-  // getProjects() {
-  //   this.projectService.getProjects()
-  //                      .subscribe(projects => this.projects = projects);
-  // }
 
   addProject(newName: string) {
     this.projectService.addProject(newName);
@@ -40,7 +29,6 @@ export class ProjectListComponent {
   }
 
   deleteAll() {
-    // this.projects.remove();
     this.projectService.deleteAll();
   }
 }

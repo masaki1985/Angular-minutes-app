@@ -1,15 +1,15 @@
-export interface Project {
-    id: number;
-    title: string;
-    date: Date;
-    time: TimeRanges;
-    startTime: string;
-    endTime: string;
-    place: string;
-    // members: member[];
-    // clerks: clerk[];
-    // majorItems: majorItem[];
-}
+// export interface Project {
+//     id: number;
+//     title: string;
+//     date: Date;
+//     time: TimeRanges;
+//     startTime: string;
+//     endTime: string;
+//     place: string;
+//     members: member[];
+//     clerks: clerk[];
+//     majorItems: majorItem[];
+// }
 
 // export interface member {
 //     name: string;
