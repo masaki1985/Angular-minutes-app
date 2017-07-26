@@ -70,21 +70,40 @@
     </div>
     <div>
       <span>時間</span>
-      <input type="text">〜
-      <input type="text">
+      <select #newStartTime (blur)="update(project.$key, 'startTime', newStartTime.value)">
+        <option value="00:00" [selected]="project.startTime?.value === '00:00'">00:00</option>
+        <option value="00:15" [selected]="project.startTime?.value === '00:15'">00:15</option>
+        <option value="00:30" [selected]="project.startTime?.value === '00:30'">00:30</option>
+        <option value="00:45" [selected]="project.startTime?.value === '00:45'">00:45</option>
+        <option value="01:00" [selected]="project.startTime?.value === '01:00'">01:00</option>
+      </select>
+      〜
+      <select #newEndTime (blur)="update(project.$key, 'endTime', newEndTime.value)">
+        <option value="00:00" [selected]="project.endTime?.value === '00:00'">00:00</option>
+        <option value="00:15" [selected]="project.endTime?.value === '00:15'">00:15</option>
+        <option value="00:30" [selected]="project.endTime?.value === '00:30'">00:30</option>
+        <option value="00:45" [selected]="project.endTime?.value === '00:45'">00:45</option>
+        <option value="01:00" [selected]="project.endTime?.value === '01:00'">01:00</option>
+      </select>
+      <button>保存</button> 
     </div>
     <div>
       <span>場所</span>
-      <input type="text" value="{{project.place.value}}" #newPlace>
+      <input type="text" value="{{project.place?.value}}" #newPlace>
       <button>変更</button>
       <button (click)="update(project.$key, 'place', newPlace.value)">保存</button>      
     </div>
     <div>
       <span>参加者</span>
       <input type="text" #newMember>
-      <button>変更</button>
-      <button>保存</button>
+      <button (click)="updateMember(project, 'members', newMember.value)">追加</button>      
     </div>
+    <span *ngFor="let member of project.members?.value">
+        <span>{{member}}</span>
+        <button>変更</button>
+        <button>保存</button>
+        <br>
+    </span>
     <div>
       <span>書記</span>
       <input type="text" #newSecretary>
@@ -93,9 +112,8 @@
     </div>
     <div>
       <span>項目</span>
-      <input type="text" #newItems>      
-      <!--<button (click)="update(project.$key, 'items', newItems.value)">追加</button>-->
-      <button (click)="updateArray(project, 'items', newItems.value)">追加</button>      
+      <input type="text" #newItem>      
+      <button (click)="updateItem(project, 'items', newItem.value)">追加</button>
     </div>
   </div>
 </div>

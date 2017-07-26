@@ -6,7 +6,7 @@
 </ul>-->
 <ul class="projects">
     <li *ngFor="let project of projects | async" (click)="gotoDetail(project.$key)">
-      {{project.title}}
+      {{project.title.value}}
     </li>
     <input type="text" #newproject>
     <button (click)="addProject(newproject.value)">Add</button>

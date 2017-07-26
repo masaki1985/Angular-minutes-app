@@ -28,8 +28,8 @@ export class ProjectService {
     this.projects = db.list('/projects');
   }
 
-  addProject(newName: string) {
-    this.projects.push({ title: newName });
+  addProject(newTitle: string) {
+    this.projects.push({ title: {value :newTitle} });
   }
 
   deleteAll() {

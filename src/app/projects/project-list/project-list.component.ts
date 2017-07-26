@@ -32,7 +32,6 @@ export class ProjectListComponent {
   // }
 
   addProject(newName: string) {
-    // this.projects.push({ title: newName });
     this.projectService.addProject(newName);
   }
 

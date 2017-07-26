@@ -48,16 +48,32 @@ export class ProjectComponent implements OnInit {
     this.projectService.update(key, target, value);
   }
 
-  updateArray(project, target, value) {
-    let array: any[];
+  updateItem(project, target, value) {
+    let data: any[];
     if(project.items) {
-      array = project.items.value;
-      array.push(value);
+      data = project.items.value;
+      data.push(value);
     }
     else {
-      array = [value];
+      data = [value];
     }
-    this.projectService.update(project.$key, target, array);
+    this.projectService.update(project.$key, target, data);
+  }
+
+  updateMember(project, target, value) {
+    let data: any[];
+    if(project.members) {
+      data = project.members.value;
+      data.push(value);
+    }
+    else {
+      data = [value];
+    }
+    this.projectService.update(project.$key, target, data);
+  }
+
+  test() {
+    console.log("test");
   }
 
   // test(key, value) {
