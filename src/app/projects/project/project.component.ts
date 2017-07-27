@@ -75,7 +75,7 @@ export class ProjectComponent implements OnInit {
     this.projectService.delete(key);
   }
 
-  test() {
+  testShow() {
     this.hidden = false;
     this.checked = false;
   }
@@ -83,6 +83,10 @@ export class ProjectComponent implements OnInit {
   testHidden() {
     this.hidden = true;
     this.checked = true;
+  }
+
+  testConsole() {
+    console.log("test");
   }
 
 }

@@ -4,8 +4,8 @@
       <div>
         <span>議題</span>
         <input type="text" value="{{project.title?.value}}" #newTitle [readonly]="readonly">
-        <button (click)="change()">変更</button>
-        <button (click)="update(project.$key, 'title', newTitle.value)">保存</button>
+        <button type="button" (click)="change()">変更</button>
+        <button type="button" (click)="update(project.$key, 'title', newTitle.value)">保存</button>
       </div>
       <div>
         <span>日付</span>
@@ -32,14 +32,14 @@
       <div>
         <span>場所</span>
         <input type="text" value="{{project.place?.value}}" #newPlace>
-        <button>変更</button>
-        <button (click)="update(project.$key, 'place', newPlace.value)">保存</button>      
+        <button type="button">変更</button>
+        <button type="button" (click)="update(project.$key, 'place', newPlace.value)">保存</button>      
       </div>
       <div>
         <span>参加者</span>
         <input type="text" #newMember>
-        <button (click)="updateMember(project, 'members', newMember.value)">追加</button>
-        <button (click)="deleteMembers(project)">削除</button>
+        <button type="button" (click)="updateMember(project, 'members', newMember.value)">追加</button>
+        <button type="button" (click)="deleteMembers(project)">全削除</button>
       </div>
       <span *ngFor="let member of project.members?.value">
           <span>{{member}}</span>
@@ -47,17 +47,17 @@
       <div>
         <span>書記</span>
         <input type="text" #newSecretary>
-        <button>変更</button>
-        <button>保存</button>
+        <button type="button">変更</button>
+        <button type="button">保存</button>
       </div>
       <div>
         <span>項目</span>
         <input type="text" #newItem>      
-        <button (click)="updateItem(project, 'items', newItem.value)">追加</button>
+        <button type="button" (click)="updateItem(project, 'items', newItem.value)">追加</button>
       </div>
       <input type="checkbox" (click)="testHidden()" [checked]="checked" [hidden]="hidden">
       <span [hidden]="hidden">サインする</span>
+      <button type="button" (click)="testShow()">表示</button>
     </form>
   </div>
 </div>
-<div (click)="test()">test</div>
