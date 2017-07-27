@@ -3,35 +3,35 @@
     <form>
       <div>
         <span>議題</span>
-        <input type="text" value="{{project.title?.value}}" #newTitle [readonly]="readonly">
+        <input type="text" value="{{project.title}}" #newTitle [readonly]="readonly">
         <button type="button" (click)="change()">変更</button>
         <button type="button" (click)="update(project, 'title', newTitle.value)">保存</button>
       </div>
       <div>
         <span>日付</span>
-        <input type="date" value="{{project.date?.value}}"#newDate (blur)="update(project, 'date', newDate.value)">
+        <input type="date" value="{{project.date}}"#newDate (blur)="update(project, 'date', newDate.value)">
       </div>
       <div>
         <span>時間</span>
         <select #newStartTime (blur)="update(project, 'startTime', newStartTime.value)">
-          <option value="00:00" [selected]="project.startTime?.value === '00:00'">00:00</option>
-          <option value="00:15" [selected]="project.startTime?.value === '00:15'">00:15</option>
-          <option value="00:30" [selected]="project.startTime?.value === '00:30'">00:30</option>
-          <option value="00:45" [selected]="project.startTime?.value === '00:45'">00:45</option>
-          <option value="01:00" [selected]="project.startTime?.value === '01:00'">01:00</option>
+          <option value="00:00" [selected]="project.startTime === '00:00'">00:00</option>
+          <option value="00:15" [selected]="project.startTime === '00:15'">00:15</option>
+          <option value="00:30" [selected]="project.startTime === '00:30'">00:30</option>
+          <option value="00:45" [selected]="project.startTime === '00:45'">00:45</option>
+          <option value="01:00" [selected]="project.startTime === '01:00'">01:00</option>
         </select>
         〜
         <select #newEndTime (blur)="update(project, 'endTime', newEndTime.value)">
-          <option value="00:00" [selected]="project.endTime?.value === '00:00'">00:00</option>
-          <option value="00:15" [selected]="project.endTime?.value === '00:15'">00:15</option>
-          <option value="00:30" [selected]="project.endTime?.value === '00:30'">00:30</option>
-          <option value="00:45" [selected]="project.endTime?.value === '00:45'">00:45</option>
-          <option value="01:00" [selected]="project.endTime?.value === '01:00'">01:00</option>
+          <option value="00:00" [selected]="project.endTime === '00:00'">00:00</option>
+          <option value="00:15" [selected]="project.endTime === '00:15'">00:15</option>
+          <option value="00:30" [selected]="project.endTime === '00:30'">00:30</option>
+          <option value="00:45" [selected]="project.endTime === '00:45'">00:45</option>
+          <option value="01:00" [selected]="project.endTime === '01:00'">01:00</option>
         </select>
       </div>
       <div>
         <span>場所</span>
-        <input type="text" value="{{project.place?.value}}" #newPlace>
+        <input type="text" value="{{project.place}}" #newPlace>
         <button type="button">変更</button>
         <button type="button" (click)="update(project, 'place', newPlace.value)">保存</button>      
       </div>
@@ -41,8 +41,8 @@
         <button type="button" (click)="updateArrayData(project, 'members', newMember.value)">追加</button>
         <button type="button" (click)="deleteAll(project, 'members')">全削除</button>
       </div>
-      <span *ngFor="let member of project.members?.value">
-          <span>{{member}}</span>
+      <span *ngFor="let member of project.members">
+          <span class="members">{{member}}</span>
       </span>
       <div>
         <span>書記</span>
@@ -50,7 +50,7 @@
         <button type="button" (click)="updateArrayData(project, 'secretaries', newSecretary.value)">追加</button>
         <button type="button" (click)="deleteAll(project, 'secretaries')">全削除</button>
       </div>
-      <span *ngFor="let secretary of project.secretaries?.value">
+      <span *ngFor="let secretary of project.secretaries">
           <span>{{secretary}}</span>
       </span>
       <div>
@@ -58,6 +58,9 @@
         <input type="text" #newItem>      
         <button type="button" (click)="updateArrayData(project, 'items', newItem.value)">追加</button>
       </div>
+      <ul *ngFor="let item of project.items">
+          <li>{{item}}</li>
+      </ul>
       <div [hidden]="hidden">
         <input type="checkbox" (click)="hide()" [checked]="checked">
         <span>サインする</span>

@@ -44,7 +44,7 @@ export class ProjectComponent implements OnInit {
    * @param value   更新する値
    */
   update(project, target, value) {
-    if(project[target].value === value) {
+    if(project[target] === value) {
       return;
     }
     this.projectService.update(project.$key, target, value);
@@ -62,7 +62,7 @@ export class ProjectComponent implements OnInit {
     if(!value) { return; }
     let data: any[];
     if(project[target]) {
-      data = project[target].value;
+      data = project[target];
       data.push(value);
     }
     else {

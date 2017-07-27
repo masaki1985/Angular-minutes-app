@@ -15,7 +15,7 @@ export class ProjectService {
   }
 
   addProject(newTitle: string) {
-    this.projects.push({ title: {value :newTitle} });
+    this.projects.push({ title: newTitle });
   }
 
   deleteAll() {
@@ -27,8 +27,7 @@ export class ProjectService {
   }
 
   update(key, target, value) {
-    key += '/' + target;
-    let test = this.projects.update(key, {value});
+    let test = this.projects.update(key, {[target]: value});
   }
 
 }
