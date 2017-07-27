@@ -5,15 +5,15 @@
         <span>議題</span>
         <input type="text" value="{{project.title?.value}}" #newTitle [readonly]="readonly">
         <button type="button" (click)="change()">変更</button>
-        <button type="button" (click)="update(project.$key, 'title', newTitle.value)">保存</button>
+        <button type="button" (click)="update(project, 'title', newTitle.value)">保存</button>
       </div>
       <div>
         <span>日付</span>
-        <input type="date" value="{{project.date?.value}}"#newDate (blur)="update(project.$key, 'date', newDate.value)">
+        <input type="date" value="{{project.date?.value}}"#newDate (blur)="update(project, 'date', newDate.value)">
       </div>
       <div>
         <span>時間</span>
-        <select #newStartTime (blur)="update(project.$key, 'startTime', newStartTime.value)">
+        <select #newStartTime (blur)="update(project, 'startTime', newStartTime.value)">
           <option value="00:00" [selected]="project.startTime?.value === '00:00'">00:00</option>
           <option value="00:15" [selected]="project.startTime?.value === '00:15'">00:15</option>
           <option value="00:30" [selected]="project.startTime?.value === '00:30'">00:30</option>
@@ -21,7 +21,7 @@
           <option value="01:00" [selected]="project.startTime?.value === '01:00'">01:00</option>
         </select>
         〜
-        <select #newEndTime (blur)="update(project.$key, 'endTime', newEndTime.value)">
+        <select #newEndTime (blur)="update(project, 'endTime', newEndTime.value)">
           <option value="00:00" [selected]="project.endTime?.value === '00:00'">00:00</option>
           <option value="00:15" [selected]="project.endTime?.value === '00:15'">00:15</option>
           <option value="00:30" [selected]="project.endTime?.value === '00:30'">00:30</option>
@@ -33,13 +33,13 @@
         <span>場所</span>
         <input type="text" value="{{project.place?.value}}" #newPlace>
         <button type="button">変更</button>
-        <button type="button" (click)="update(project.$key, 'place', newPlace.value)">保存</button>      
+        <button type="button" (click)="update(project, 'place', newPlace.value)">保存</button>      
       </div>
       <div>
         <span>参加者</span>
         <input type="text" #newMember>
-        <button type="button" (click)="updateMember(project, 'members', newMember.value)">追加</button>
-        <button type="button" (click)="deleteMembers(project)">全削除</button>
+        <button type="button" (click)="updateArrayData(project, 'members', newMember.value)">追加</button>
+        <button type="button" (click)="deleteAll(project, 'members')">全削除</button>
       </div>
       <span *ngFor="let member of project.members?.value">
           <span>{{member}}</span>
@@ -47,17 +47,38 @@
       <div>
         <span>書記</span>
         <input type="text" #newSecretary>
-        <button type="button">変更</button>
-        <button type="button">保存</button>
+        <button type="button" (click)="updateArrayData(project, 'secretaries', newSecretary.value)">追加</button>
+        <button type="button" (click)="deleteAll(project, 'secretaries')">全削除</button>
       </div>
+      <span *ngFor="let secretary of project.secretaries?.value">
+          <span>{{secretary}}</span>
+      </span>
       <div>
         <span>項目</span>
         <input type="text" #newItem>      
-        <button type="button" (click)="updateItem(project, 'items', newItem.value)">追加</button>
+        <button type="button" (click)="updateArrayData(project, 'items', newItem.value)">追加</button>
       </div>
-      <input type="checkbox" (click)="testHidden()" [checked]="checked" [hidden]="hidden">
-      <span [hidden]="hidden">サインする</span>
-      <button type="button" (click)="testShow()">表示</button>
+      <div [hidden]="hidden">
+        <input type="checkbox" (click)="hide()" [checked]="checked">
+        <span>サインする</span>
+      </div>
+      <button type="button" (click)="testShow()">サイン表示</button>
     </form>
   </div>
 </div>
+
+<!--test-->
+<!--<br>
+<div>
+  <form [formGroup]="dataForm">
+    <input type="text" value="test1" formControlName="data">
+    <input type="text" value="test2">
+    <button type="button">test</button>
+    <br>
+    <input type="checkbox" (click)="testHidden()" [checked]="checked" [hidden]="hidden">
+    <span [hidden]="hidden">サインする</span>
+    <button type="button" (click)="testShow()">表示</button>
+  </form>
+</div>
+<P> Form value: {{dataForm.value | json}}</P>
+<p> Form status: {{dataForm.status | json}}</p>-->

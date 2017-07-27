@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
+// import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 
 import { ProjectService } from "app/projects/shared/project.service";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
@@ -16,12 +17,15 @@ export class ProjectComponent implements OnInit {
   readonly: boolean = true;
   hidden: boolean = false;
   checked: boolean = false;
+  // dataForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    db: AngularFireDatabase) {
+    db: AngularFireDatabase
+    /*private fb: FormBuilder*/) {
       this.projects = db.list('/projects');
+      // this.createForm();
   }
 
   ngOnInit() {
@@ -33,54 +37,63 @@ export class ProjectComponent implements OnInit {
   change() {
     this.readonly = false;
   }
-
-  update(key, target, value) {
-    this.projectService.update(key, target, value);
+  /**
+   * データの更新
+   * @param project 更新対象のproject
+   * @param target  更新対象のプロパティ
+   * @param value   更新する値
+   */
+  update(project, target, value) {
+    if(project[target].value === value) {
+      return;
+    }
+    this.projectService.update(project.$key, target, value);
+    this.show();
+    this.readonly = true;
   }
-
-  //TO DO
-  //大項目を更新
-  updateItem(project, target, value) {
+  
+  /**
+   * 配列で管理しているデータの更新
+   * @param project 更新対象のproject 
+   * @param target  更新対象のプロパティ
+   * @param value   更新する値
+   */
+  updateArrayData(project, target, value) {
     if(!value) { return; }
     let data: any[];
-    if(project.items) {
-      data = project.items.value;
+    if(project[target]) {
+      data = project[target].value;
       data.push(value);
     }
     else {
       data = [value];
     }
     this.projectService.update(project.$key, target, data);
+    this.show();
   }
 
-  //TO DO
-  //参加者を更新
-  updateMember(project, target, value) {
-    if(!value) { return; }
-    let data: any[];
-    if(project.members) {
-      data = project.members.value;
-      data.push(value);
-    }
-    else {
-      data = [value];
-    }
-    this.projectService.update(project.$key, target, data);
-  }
-
-  //TO DO
-  //参加者を削除
-  deleteMembers(project) {
-    let key = project.$key + '/members';
+  /**
+   * 配列で管理しているデータの全削除
+   * @param project 削除対象のprojct
+   * @param target 削除対象のプロパティ
+   */
+  deleteAll(project, target) {
+    let key = project.$key + '/' + target;
     this.projectService.delete(key);
   }
 
-  testShow() {
+  /**
+   * チェックボックスを表示する
+   */
+  show() {
     this.hidden = false;
     this.checked = false;
   }
 
-  testHidden() {
+  /**
+   * チェックボックスを隠す
+   */
+  hide() {
     this.hidden = true;
     this.checked = true;
   }
@@ -88,5 +101,25 @@ export class ProjectComponent implements OnInit {
   testConsole() {
     console.log("test");
   }
+
+  testShow() {
+    this.hidden = false;
+  }
+
+  //TO DO
+  //Reactive Forms test
+  // data = new FormControl;
+
+  // dataForm = new FormGroup({
+  //   data: new FormControl()
+  // });
+
+  // createForm()  {
+  //   this.dataForm = this.fb.group({
+  //     data: ['', Validators.required],
+  //   })
+  // }
+
+  
 
 }
