@@ -1,6 +1,11 @@
 .members {
     display: inline-block;
     margin-right: 10px;
+    padding: 5px;
+    cursor: move;
+}
+.members:hover {
+    background: skyblue;
 }
 .members input {
     cursor: pointer;

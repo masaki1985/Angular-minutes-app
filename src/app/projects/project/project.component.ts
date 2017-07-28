@@ -56,15 +56,15 @@ export class ProjectComponent implements OnInit {
   }
   
   /**
-   * 配列で管理しているデータの更新
-   * @param project 更新対象のproject 
-   * @param target  更新対象のプロパティ
-   * @param value   更新する値
+   * 配列で管理しているデータの追加
+   * @param project 追加対象のproject 
+   * @param target  追加対象のプロパティ
+   * @param value   追加する値
    */
-  updateArrayData(project, target, value) {
+  addData(project, target, value) {
     if(!value) { return; }
-    let data: any[];
-    if(project[target]) {
+    let data = project[target];
+    if(data) {
       data = project[target];
       data.push(value);
     }
@@ -75,18 +75,39 @@ export class ProjectComponent implements OnInit {
     this.show();
   }
 
-  updateTest(project, target, value) {
-    if(!value) { return; }
-    let data = project.items;
-    data.push({major: value});
-    this.projectService.update(project.$key, target, data);
-    this.show();    
-  }
-
   updateMember(project, target, index, value) {
-    let key = project.$key + '/members';
+    let key = project.$key + '/' + target;
     this.projectService.update(key, index , value)
     this.show();    
+  }
+  
+  updateMajorItem(project, target, value) {
+    if(!value) { return; }
+    let key = project.$key;
+    let data = project.items;
+    if(data) {
+      data.push({major: value});
+    }
+    else {
+      key += '/' + target;
+      target = '0';
+      data = {major: value};
+    }
+    this.projectService.update(key, target, data);
+    this.show();    
+  }
+  
+  updateSubItem(project, target, index, value) {
+    let key = project.$key;
+    key += '/' + target + '/' + index;
+    let data = project.items[index].sub
+    if(data) {
+      data.push(value);
+    }
+    else {
+      data = [value];
+    }
+    this.projectService.update(key, 'sub', data);
   }
 
   deleteMember(project, target, index, value) {
@@ -141,6 +162,10 @@ export class ProjectComponent implements OnInit {
     console.log('Test');
     // this.readonly = false;
     // this.element.remove();
+  }
+
+  testDrag() {
+    console.log('test');
   }
   //TO DO
   //Reactive Forms test
