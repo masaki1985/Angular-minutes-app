@@ -9,9 +9,11 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 export class ProjectService {
 
   projects: FirebaseListObservable<any[]>;
+  items: FirebaseListObservable<any[]>;
 
   constructor(db: AngularFireDatabase) {
     this.projects = db.list('/projects');
+    this.items = db.list('/contents');
   }
 
   addProject(newTitle: string) {
@@ -27,7 +29,11 @@ export class ProjectService {
   }
 
   update(key, target, value) {
-    let test = this.projects.update(key, {[target]: value});
+    this.projects.update(key, {[target]: value});
+  }
+
+  addItem(newItem: string) {
+    this.items.push({items: newItem});
   }
 
 }

@@ -18,14 +18,16 @@ export class ProjectComponent implements OnInit {
   hidden: boolean = false;
   checked: boolean = false;
   // dataForm: FormGroup;
-
+  // private element: HTMLElement;
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    db: AngularFireDatabase
+    db: AngularFireDatabase,
+    // el: ElementRef
     /*private fb: FormBuilder*/) {
       this.projects = db.list('/projects');
       // this.createForm();
+      // this.element = el.nativeElement;
   }
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class ProjectComponent implements OnInit {
   change() {
     this.readonly = false;
   }
+
   /**
    * データの更新
    * @param project 更新対象のproject
@@ -72,6 +75,25 @@ export class ProjectComponent implements OnInit {
     this.show();
   }
 
+  updateTest(project, target, value) {
+    if(!value) { return; }
+    let data = project.items;
+    data.push({major: value});
+    this.projectService.update(project.$key, target, data);
+    this.show();    
+  }
+
+  updateMember(project, target, index, value) {
+    let key = project.$key + '/members';
+    this.projectService.update(key, index , value)
+    this.show();    
+  }
+
+  deleteMember(project, target, index, value) {
+    let key = project.$key + '/' + target + '/' + index;
+    this.projectService.delete(key);
+    this.show();    
+  }
   /**
    * 配列で管理しているデータの全削除
    * @param project 削除対象のprojct
@@ -80,6 +102,7 @@ export class ProjectComponent implements OnInit {
   deleteAll(project, target) {
     let key = project.$key + '/' + target;
     this.projectService.delete(key);
+    this.show();    
   }
 
   /**
@@ -106,6 +129,19 @@ export class ProjectComponent implements OnInit {
     this.hidden = false;
   }
 
+  test(project, item, target, value) {
+    let key = project.$key +'/items';
+    let data = ['大項目1', ['小項目1', '小項目2', '小項目3']];
+    this.projectService.update(key, target, data);
+  }
+
+
+  testFix(value) {
+    console.log(value);
+    console.log('Test');
+    // this.readonly = false;
+    // this.element.remove();
+  }
   //TO DO
   //Reactive Forms test
   // data = new FormControl;
