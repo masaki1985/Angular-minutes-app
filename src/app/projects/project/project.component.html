@@ -40,10 +40,9 @@
         <input type="text" #newMember>
         <button type="button" (click)="addData(project, 'members', newMember.value)">追加</button>
         <button type="button" (click)="deleteAll(project, 'members')">全削除</button>
-        <button type="button" (click)="testMembers(project)">test</button>
       </div>
-      <ul *ngFor="let member of project?.members; let index = index;" class="members">
-        <li *ngIf="member">
+      <ul>
+        <li *ngFor="let member of project?.members; let index = index;" class="members" draggable="true">
           <input #fixMember (blur)="updateMember(project, 'members', index, fixMember.value)" value="{{member}}">
           <button type="button" (click)="delete(project, 'members', index, fixMember.value)">×</button>
         </li>
@@ -57,8 +56,8 @@
         <button type="button" (click)="updateMajorItem(project, 'items', newItem.value)">追加</button>
         <button type="button" (click)="deleteAll(project, 'items')">全削除</button>
       </div>
-      <ul *ngFor="let item of project?.items; let index = index;">
-          <li *ngIf="item">
+      <ul>
+          <li *ngFor="let item of project?.items; let index = index;">
             <input type="text" value="{{item?.major}}">
             <button type="button" (click)="delete(project, 'items', index)">×</button>
             <input type="text" #newSubItem>
@@ -66,7 +65,7 @@
             <ul *ngFor="let sub of item?.sub; let subIndex = index;">
               <li *ngIf="sub">
                 <input type="text" value="{{sub}}">
-                <button type="button" (click)="delete(project, 'items/' + index + '/sub', subIndex)">×</button>
+                <button type="button" (click)="deleteItem(project, 'items/' + index + '/sub', index, subIndex)">×</button>
               </li>
             </ul>
           </li>
@@ -78,19 +77,3 @@
     </form>
   </div>
 </div>
-
-<!--test-->
-<!--<br>
-<div>
-  <form [formGroup]="dataForm">
-    <input type="text" value="test1" formControlName="data">
-    <input type="text" value="test2">
-    <button type="button">test</button>
-    <br>
-    <input type="checkbox" (click)="testHidden()" [checked]="checked" [hidden]="hidden">
-    <span [hidden]="hidden">サインする</span>
-    <button type="button" (click)="testShow()">表示</button>
-  </form>
-</div>
-<P> Form value: {{dataForm.value | json}}</P>
-<p> Form status: {{dataForm.status | json}}</p>-->

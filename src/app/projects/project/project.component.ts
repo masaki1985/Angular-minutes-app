@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-// import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 
 import { ProjectService } from "app/projects/shared/project.service";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
@@ -17,17 +16,12 @@ export class ProjectComponent implements OnInit {
   readonly: boolean = true;
   hidden: boolean = false;
   checked: boolean = false;
-  // dataForm: FormGroup;
-  // private element: HTMLElement;
+  
   constructor(
     private route: ActivatedRoute,
     private projectService: ProjectService,
-    db: AngularFireDatabase,
-    // el: ElementRef
-    /*private fb: FormBuilder*/) {
+    db: AngularFireDatabase) {
       this.projects = db.list('/projects');
-      // this.createForm();
-      // this.element = el.nativeElement;
   }
 
   ngOnInit() {
@@ -103,7 +97,7 @@ export class ProjectComponent implements OnInit {
     key += '/' + target + '/' + index;
     let data = project.items[index].sub
     if(data) {
-      data.push({0: value});
+      data.push(value);
     }
     else {
       data = [value];
@@ -118,11 +112,18 @@ export class ProjectComponent implements OnInit {
    * @param index   削除対象のindex
    */
   delete(project, target, index) {
-    let key = project.$key + '/' + target + '/' + index;
-    this.projectService.delete(key);
+    let data = project[target];
+    data.splice(index, 1);
+    this.projectService.update(project.$key, target, data);
     this.show();
   }
 
+  deleteItem(project, target, index, subIndex) {
+    let data = project.items[index].sub;
+    data.splice(subIndex, 1);
+    this.projectService.update(project.$key, target, data);
+    this.show();
+  }
   /**
    * 配列で管理しているデータの全削除
    * @param project 削除対象のprojct
@@ -153,35 +154,5 @@ export class ProjectComponent implements OnInit {
   testConsole() {
     console.log("test");
   }
-
-  testFix(value) {
-    console.log(value);
-    console.log('Test');
-    // this.readonly = false;
-    // this.element.remove();
-  }
-
-  testDrag() {
-    console.log('test');
-  }
-
-  testMembers(project) {
-    console.log(project.members);
-  }
-  //TO DO
-  //Reactive Forms test
-  // data = new FormControl;
-
-  // dataForm = new FormGroup({
-  //   data: new FormControl()
-  // });
-
-  // createForm()  {
-  //   this.dataForm = this.fb.group({
-  //     data: ['', Validators.required],
-  //   })
-  // }
-
-  
 
 }
