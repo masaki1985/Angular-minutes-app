@@ -40,22 +40,17 @@
         <input type="text" #newMember>
         <button type="button" (click)="addData(project, 'members', newMember.value)">追加</button>
         <button type="button" (click)="deleteAll(project, 'members')">全削除</button>
+        <button type="button" (click)="testMembers(project)">test</button>
       </div>
-      <div *ngFor="let member of project?.members; let index = index;" #members class="members" (dragstart)="testDrag()" draggable="true">
-        <div *ngIf="member">
+      <ul *ngFor="let member of project?.members; let index = index;" class="members">
+        <li *ngIf="member">
           <input #fixMember (blur)="updateMember(project, 'members', index, fixMember.value)" value="{{member}}">
-          <button type="button" (click)="deleteMember(project, 'members', index, fixMember.value)">×</button>
-        </div>
-      </div>
+          <button type="button" (click)="delete(project, 'members', index, fixMember.value)">×</button>
+        </li>
+      </ul>
       <div>
         <span>書記</span>
-        <!--<input type="text" #newSecretary>
-        <button type="button" (click)="updateArrayData(project, 'secretaries', newSecretary.value)">追加</button>
-        <button type="button" (click)="deleteAll(project, 'secretaries')">全削除</button>-->
       </div>
-      <!--<span *ngFor="let secretary of project?.secretaries">
-          <span>{{secretary}}</span>
-      </span>-->
       <div>
         <span>項目</span>
         <input type="text" #newItem>      
@@ -63,18 +58,23 @@
         <button type="button" (click)="deleteAll(project, 'items')">全削除</button>
       </div>
       <ul *ngFor="let item of project?.items; let index = index;">
-          <li>{{item?.major}}</li>
-          <ul *ngFor="let sub of item?.sub; let subIndex = index;">
-            <li *ngIf="sub">{{sub}}</li>
-          </ul>
-          <input type="text" #newSubItem>
-          <button type="button" (click)="updateSubItem(project, 'items', index, newSubItem.value)">追加</button>
+          <li *ngIf="item">
+            <input type="text" value="{{item?.major}}">
+            <button type="button" (click)="delete(project, 'items', index)">×</button>
+            <input type="text" #newSubItem>
+            <button type="button" (click)="updateSubItem(project, 'items', index, newSubItem.value)">追加</button>
+            <ul *ngFor="let sub of item?.sub; let subIndex = index;">
+              <li *ngIf="sub">
+                <input type="text" value="{{sub}}">
+                <button type="button" (click)="delete(project, 'items/' + index + '/sub', subIndex)">×</button>
+              </li>
+            </ul>
+          </li>
       </ul>
       <div [hidden]="hidden">
         <input type="checkbox" (click)="hide()" [checked]="checked">
         <span>サインする</span>
       </div>
-      <button type="button" (click)="testShow()">サイン表示</button>
     </form>
   </div>
 </div>

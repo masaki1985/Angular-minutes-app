@@ -21,6 +21,7 @@ export class ProjectListComponent {
   }
 
   addProject(newName: string) {
+    if(!newName) {return; }
     this.projectService.addProject(newName);
   }
 

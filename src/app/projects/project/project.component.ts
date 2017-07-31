@@ -98,23 +98,31 @@ export class ProjectComponent implements OnInit {
   }
   
   updateSubItem(project, target, index, value) {
+    if(!value) { return; }
     let key = project.$key;
     key += '/' + target + '/' + index;
     let data = project.items[index].sub
     if(data) {
-      data.push(value);
+      data.push({0: value});
     }
     else {
       data = [value];
     }
     this.projectService.update(key, 'sub', data);
+    this.show();
   }
-
-  deleteMember(project, target, index, value) {
+  /**
+   * データの削除
+   * @param project 削除対象のproject 
+   * @param target  削除対象のプロパティ
+   * @param index   削除対象のindex
+   */
+  delete(project, target, index) {
     let key = project.$key + '/' + target + '/' + index;
     this.projectService.delete(key);
-    this.show();    
+    this.show();
   }
+
   /**
    * 配列で管理しているデータの全削除
    * @param project 削除対象のprojct
@@ -146,17 +154,6 @@ export class ProjectComponent implements OnInit {
     console.log("test");
   }
 
-  testShow() {
-    this.hidden = false;
-  }
-
-  test(project, item, target, value) {
-    let key = project.$key +'/items';
-    let data = ['大項目1', ['小項目1', '小項目2', '小項目3']];
-    this.projectService.update(key, target, data);
-  }
-
-
   testFix(value) {
     console.log(value);
     console.log('Test');
@@ -166,6 +163,10 @@ export class ProjectComponent implements OnInit {
 
   testDrag() {
     console.log('test');
+  }
+
+  testMembers(project) {
+    console.log(project.members);
   }
   //TO DO
   //Reactive Forms test

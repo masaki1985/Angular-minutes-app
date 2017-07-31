@@ -1,8 +1,8 @@
-.members {
+/*.members {
     display: inline-block;
-    margin-right: 10px;
     padding: 5px;
     cursor: move;
+    list-style-type: none;
 }
 .members:hover {
     background: skyblue;
@@ -16,4 +16,4 @@
     cursor: pointer;
     background: #eee;
     border: 1px solid #ccc;
-}
+}*/
